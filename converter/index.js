@@ -96,6 +96,14 @@ class Converter{
             throw new Error('Reading file error', err);
         }
     }
+
+    writeFile(fileName, data){
+        try{
+            fs.writeFileSync(fileName, data,'utf-8');
+        }catch(err){
+            throw new Error('Reading file error', err);
+        }
+    }
 }
 
 
