@@ -6,9 +6,10 @@ class Converter{
     }
     
     delimiter(inputString, character){
-        return inputString.split(character);
+        const str = inputString.replace(/(\r)/gm,"");
+        return str.split(character);
     }
-    
+
     convertToObject(valueArray){
         const obj = this.headers.reduce((acc,header)=>{
             acc[header] = header;
@@ -19,6 +20,16 @@ class Converter{
         }
         return obj;
     }
+
+    removeEmptyLines(tokenArray){
+        let index = 1;
+        for(let i=1;i<tokenArray.length;i++){
+            if(tokenArray[i].length>0){
+                index = i;
+            }
+        }
+        return index+1;
+    }
     
     csvToJson(csv){
         // this.readCSVFile();
@@ -26,7 +37,8 @@ class Converter{
 
         const tokens = this.delimiter(csv,'\n');
         const headerString = tokens[0];
-        const valueString = tokens.slice(1,tokens.length);
+        const tokenIndex = this.removeEmptyLines(tokens); 
+        const valueString = tokens.slice(1,tokenIndex);
         this.headers = this.delimiter(headerString,',');
         const json = new Array();
         valueString.forEach((value)=>{

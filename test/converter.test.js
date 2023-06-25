@@ -21,7 +21,14 @@ test('Read csv file and convert to json',()=>{
     const csvString = convert.readFile('testData.csv');
     const expectedJsonValue = '[{"id":"123","name":"John","tag":"G","type":"M"},{"id":"313","name":"Bob","tag":"J","type":"B"}]';
     const convertedJsonValue = convert.csvToJson(csvString);
-    expect(csvString).toBe("id,name,tag,type\n123,John,G,M\n313,Bob,J,B");
+    expect(convertedJsonValue).toBe(expectedJsonValue);
+});
+
+test('Read csv file and convert to json with empty next line',()=>{
+    const convert = new Converter();
+    const csvString = convert.readFile('testData2.csv');
+    const expectedJsonValue = '[{"id":"123","name":"John","tag":"G","type":"M"},{"id":"313","name":"Bob","tag":"J","type":"B"}]';
+    const convertedJsonValue = convert.csvToJson(csvString);
     expect(convertedJsonValue).toBe(expectedJsonValue);
 });
 
